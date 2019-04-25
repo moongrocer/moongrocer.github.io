@@ -295,12 +295,13 @@
                     var long = parseFloat(places[i].getElementsByTagName("long")[0].textContent);
                     var name = places[i].getElementsByTagName("title")[0].textContent;
                     var image = {
-                        //url: marker_image,
-                        url: 'assets/marker1.png',
+                        url: marker_image,
+                        //url: 'assets/marker1.png',
                         labelOrigin: new google.maps.Point(50,110),
                         //origin: new google.maps.Point(0, 0),
                         //anchor: new google.maps.Point(0, 0),
-                        scaledSize: new google.maps.Size(38, 45)
+                        //scaledSize: new google.maps.Size(38, 45)
+                        scaledSize: new google.maps.Size(65, 65)
                     };
                     var latLng = new google.maps.LatLng(lat, long);
                     var marker = new google.maps.Marker({
