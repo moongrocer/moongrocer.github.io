@@ -1,5 +1,6 @@
 .custom-marker-div {
   position: relative;
+  transform: translate(-50%, -100%);
 }
 .triangle {
   width: 0; 
