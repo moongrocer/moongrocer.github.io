@@ -1,0 +1,19 @@
+.custom-marker-div {
+  position: relative;
+}
+.triangle {
+  width: 0; 
+  height: 0; 
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 7px solid #fff;
+  position: absolute;
+  left: 50%;
+  top: 71px;
+  transform: translate(-50%);
+}
+.custom-marker {
+  border-radius: 3px;
+  border: #fff 3px solid;
+  box-shadow: #00000044 0 0 2px 3px;
+}
