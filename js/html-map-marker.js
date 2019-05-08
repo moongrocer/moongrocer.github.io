@@ -7,6 +7,7 @@ const createHTMLMapMarker = ({ OverlayView = google.maps.OverlayView,  ...args }
       super();
       this.latlng = args.latlng;
       this.html = args.html;
+      this.customInfo = args.customInfo;
       this.setMap(args.map);
     }
 

@@ -17,3 +17,6 @@
   border: #fff 3px solid;
   box-shadow: #00000044 0 0 2px 3px;
 }
+.custom-marker:hover {
+  cursor: pointer;
+}

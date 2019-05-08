@@ -285,6 +285,14 @@ import createHTMLMapMarker from "./html-map-marker.js";
           for (var i = 0; i < places.length; i++) {
               // console.log(places[i].getElementsByTagName("photo")[0].getAttribute("url"));
               var marker_image = places[i].getElementsByTagName("photo")[0].getAttribute("url");
+
+              // get gallery images
+              var images = places[i].getElementsByTagName("photo");
+              var gallery_images = [];
+              for (var j=0; j<images.length; j++) {
+                gallery_images.push(images[j].getAttribute("url"));
+              }
+              
               var lat = parseFloat(places[i].getElementsByTagName("lat")[0].textContent);
               var long = parseFloat(places[i].getElementsByTagName("long")[0].textContent);
               var name = places[i].getElementsByTagName("title")[0].textContent;
@@ -305,9 +313,37 @@ import createHTMLMapMarker from "./html-map-marker.js";
                 // icon: image,
                 //title: "Hello world"
                 title: String(name),
+                customInfo: gallery_images,
                 html: `<div class="custom-marker-div"><img class="custom-marker" src="`+marker_image+`" width="90" height="65"><div class="triangle"></div></div>`
                 // label: {text: name, fontSize: "14px", fontWeight: "bold", color: "white"}
               });
+
+              marker.addListener("click", function() { 
+                var gallery_images = this.customInfo;
+                var pswpElement = document.querySelectorAll('.pswp')[0];
+
+                var items = [];
+                gallery_images.forEach((url) => {
+                  let item = {
+                    src: url,
+                    w: 960,
+                    h: 720
+                  }
+                  items.push(item);
+                })
+
+                // define options (if needed)
+                var options = {
+                  // optionName: 'option value'
+                  // for example:
+                  index: 0 // start at first slide
+                };
+
+                // Initializes and opens PhotoSwipe
+                var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+                gallery.init();
+              }, false);
+
               markers.push(marker);
           }
           var markerCluster = new MarkerClusterer(map, markers,  { imagePath: 'js/clustericons/m' });
