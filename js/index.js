@@ -1,22 +1,5 @@
 import createHTMLMapMarker from "./html-map-marker.js";
 
-// const latLng = new google.maps.LatLng(16.7666, -3.0026);
-// const mapOptions = {
-//   zoom: 11,
-//   center: latLng
-// };
-// const map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-// let marker = createHTMLMapMarker({
-//   latlng: latLng,
-//   map: map,
-//   html: `<img id="parrot" src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif">`
-// });
-
-// marker.addListener("click", () => {
-//   alert("Partyin Partyin Yeah!");
-// });
-
 // function initMap() {
   var mapOptions = {
     zoom: 3,
@@ -319,6 +302,8 @@ import createHTMLMapMarker from "./html-map-marker.js";
               });
 
               marker.addListener("click", function() { 
+                // alert("clicked");
+                console.log("clicked");
                 var gallery_images = this.customInfo;
                 var pswpElement = document.querySelectorAll('.pswp')[0];
 
@@ -342,6 +327,7 @@ import createHTMLMapMarker from "./html-map-marker.js";
                 // Initializes and opens PhotoSwipe
                 var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
                 gallery.init();
+                console.log("init");
               }, false);
 
               markers.push(marker);
