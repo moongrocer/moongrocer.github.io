@@ -1,5 +1,33 @@
 import createHTMLMapMarker from "./html-map-marker.js";
 
+
+/**
+ * Get Album
+ */
+function UserAction() {
+  var request = new XMLHttpRequest();
+  // xhttp.onreadystatechange = function() {
+  //      if (this.readyState == 4 && this.status == 200) {
+  //          alert(this.responseText);
+  //      }
+  // };
+  request.open("GET", "https://photoslibrary.googleapis.com/v1/albums", true);
+  request.onload = function() {
+    var data = JSON.parse(this.response);
+    console.log(data);
+    // data.forEach(album => {
+
+    // })
+  }
+
+  request.send();
+
+  // xhttp.setRequestHeader("Content-type", "application/json");
+  // xhttp.send("Your JSON Data Here");
+}
+
+UserAction();
+
 // function initMap() {
   var mapOptions = {
     zoom: 3,
@@ -336,3 +364,4 @@ import createHTMLMapMarker from "./html-map-marker.js";
       }
   })
 // }
+
