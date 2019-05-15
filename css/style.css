@@ -24,9 +24,11 @@ html, body {
   left: 0 !important;
   top: 0 !important;
   z-index: -99 !important;
+  opacity: 0;
 }
 .swiper-container.active {
   z-index: 10 !important;
+  opacity: 1;
 }
 .swiper-container .close-btn {
   position: absolute;
@@ -53,7 +55,6 @@ html, body {
 .swiper-slide {
   background-position: center;
   background-size: cover;
-  width: 500px;
   /* margin-left: 80px;
   margin-right: 80px; */
   border-radius: 10px;
@@ -68,6 +69,14 @@ html, body {
   background-image: -webkit-linear-gradient(right,rgba(0,0,0,.6),rgba(0,0,0,0.6));
   background-image: -o-linear-gradient(right,rgba(0,0,0,.6),rgba(0,0,0,0.6));
   background-image: linear-gradient(to left,rgba(0,0,0,.6),rgba(0,0,0,0.6));
+}
+
+/* only for test */
+.swiper-slide:nth-child(odd) {
+  width: 300px;
+}
+.swiper-slide:nth-child(even) {
+  width: 500px;
 }
 
 h1.album-name {

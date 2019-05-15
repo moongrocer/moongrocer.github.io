@@ -343,6 +343,7 @@ var swiper;
                 gallery_images.forEach((url) => {
                   var arr = url.split("/");
                   var imageName = arr[arr.length-1];
+
                   contents += '<div class="swiper-slide" style="background-image:url(' + url + ');" data-photo-caption="' + imageName + '"></div>';
                 });
                 swiperWrapper.innerHTML = contents;
