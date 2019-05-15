@@ -9,7 +9,7 @@ var swiper;
     zoom: 3,
     minZoom: 3,
     center: new google.maps.LatLng(37.5, -122),
-    // mapTypeId: 'satellite',
+    mapTypeId: 'satellite',
     styles: [
       {
         "elementType": "geometry",
