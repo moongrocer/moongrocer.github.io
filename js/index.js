@@ -319,7 +319,10 @@ var swiper;
                 //title: "Hello world"
                 title: String(name),
                 customInfo: [name, gallery_images],
-                html: `<div class="custom-marker-div"><img class="custom-marker" src="`+marker_image+`" width="65" height="65"><div class="triangle"></div></div>`
+                html: `<div class="custom-marker-div">
+                        <div class="custom-marker" style="background-image: url(`+marker_image+`)" ></div>
+                        <div class="triangle"></div>
+                      </div>`
                 // label: {text: name, fontSize: "14px", fontWeight: "bold", color: "white"}
               });
 
@@ -344,7 +347,7 @@ var swiper;
                   var arr = url.split("/");
                   var imageName = arr[arr.length-1];
 
-                  contents += '<div class="swiper-slide" style="background-image:url(' + url + ');" data-photo-caption="' + imageName + '"></div>';
+                  contents += '<div class="swiper-slide" data-photo-caption="' + imageName + '"><img src="'+url+'" style="height:100%"></div>';
                 });
                 swiperWrapper.innerHTML = contents;
 
@@ -377,6 +380,8 @@ var swiper;
                     }
                   }
                 });
+
+                swiper.updateSlides();
 
                 swiperContainer.className += " active";
               }, false);

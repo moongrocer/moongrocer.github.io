@@ -59,6 +59,7 @@ html, body {
   margin-right: 80px; */
   border-radius: 10px;
   box-shadow: #000 0 0 10px;
+  width: auto;
 }
 .swiper-slide.swiper-slide-active {
   box-shadow: #000 0 0 20px;
@@ -69,14 +70,6 @@ html, body {
   background-image: -webkit-linear-gradient(right,rgba(0,0,0,.6),rgba(0,0,0,0.6));
   background-image: -o-linear-gradient(right,rgba(0,0,0,.6),rgba(0,0,0,0.6));
   background-image: linear-gradient(to left,rgba(0,0,0,.6),rgba(0,0,0,0.6));
-}
-
-/* only for test */
-.swiper-slide:nth-child(odd) {
-  width: 300px;
-}
-.swiper-slide:nth-child(even) {
-  width: 500px;
 }
 
 h1.album-name {
@@ -117,6 +110,10 @@ p.photo-caption {
   border-radius: 3px;
   border: #fff 3px solid;
   box-shadow: #00000044 0 0 2px 3px;
+  width: 65px;
+  height: 65px;
+  background-size: cover;
+  background-position: center;
 }
 .custom-marker:hover {
   cursor: pointer;
