@@ -1,3 +1,93 @@
+@import url("../fonts/font.css");
+
+#map {
+  height: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Swiper styles */
+.swiper-container {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  box-sizing: border-box;
+
+  position: fixed !important;
+  background: #000000aa;
+  width: 100vw;
+  height: 100vh;
+  left: 0 !important;
+  top: 0 !important;
+  z-index: -99 !important;
+}
+.swiper-container.active {
+  z-index: 10 !important;
+}
+.swiper-container .close-btn {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  width: 80px;
+  height: 50px;
+  background: #F2C14E;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  box-shadow: #424242 0 0 10px;
+}
+.swiper-container .close-btn:hover {
+  cursor: pointer;
+  background: #ffb302;
+}
+.swiper-container .close-btn img {
+  width: 30px;
+  margin: 10px 15px;
+}
+.swiper-wrapper {
+  height: calc(100vh - 300px);
+}
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 500px;
+  /* margin-left: 80px;
+  margin-right: 80px; */
+  border-radius: 10px;
+  box-shadow: #000 0 0 10px;
+}
+.swiper-slide.swiper-slide-active {
+  box-shadow: #000 0 0 20px;
+}
+.swiper-slide:not(.swiper-slide-active) .swiper-slide-shadow-left,
+.swiper-slide:not(.swiper-slide-active) .swiper-slide-shadow-right {
+  background-image: -webkit-gradient(linear,right top,left top,from(rgba(0,0,0,.6)),to(rgba(0,0,0,0.6)));
+  background-image: -webkit-linear-gradient(right,rgba(0,0,0,.6),rgba(0,0,0,0.6));
+  background-image: -o-linear-gradient(right,rgba(0,0,0,.6),rgba(0,0,0,0.6));
+  background-image: linear-gradient(to left,rgba(0,0,0,.6),rgba(0,0,0,0.6));
+}
+
+h1.album-name {
+  font-family: 'AvenirNextCondensed-Medium';
+  font-size: 42px;
+  color: #fff;
+  text-align: center;
+  line-height: 50px;
+  margin: 30px 0 5vh;
+}
+p.photo-caption {
+  font-family: 'AvenirNext-Medium';
+  font-size: 25px;
+  color: #17bebb;
+  line-height: 30px;
+  margin: 30px 0;
+  text-align: center;
+}
+/* Swiper styles end */
+
 .custom-marker-div {
   position: relative;
   margin-top: -4px;

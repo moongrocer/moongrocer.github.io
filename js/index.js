@@ -1,45 +1,21 @@
 import createHTMLMapMarker from "./html-map-marker.js";
 
-
-/**
- * Get Album
- */
-function UserAction() {
-  var request = new XMLHttpRequest();
-  // xhttp.onreadystatechange = function() {
-  //      if (this.readyState == 4 && this.status == 200) {
-  //          alert(this.responseText);
-  //      }
-  // };
-  request.open("GET", "https://photoslibrary.googleapis.com/v1/albums", true);
-  request.onload = function() {
-    var data = JSON.parse(this.response);
-    console.log(data);
-    // data.forEach(album => {
-
-    // })
-  }
-
-  request.send();
-
-  // xhttp.setRequestHeader("Content-type", "application/json");
-  // xhttp.send("Your JSON Data Here");
-}
-
-UserAction();
+// swiper global 
+var swiper;
 
 // function initMap() {
+(function() {
   var mapOptions = {
     zoom: 3,
     minZoom: 3,
     center: new google.maps.LatLng(37.5, -122),
-    mapTypeId: 'satellite',
+    // mapTypeId: 'satellite',
     styles: [
       {
         "elementType": "geometry",
         "stylers": [
           {
-            "color": "#212121"
+            "color": "#0a3e57"
           }
         ]
       },
@@ -55,7 +31,7 @@ UserAction();
         "elementType": "labels.text.fill",
         "stylers": [
           {
-            "color": "#757575"
+            "color": "#90c3b9"
           }
         ]
       },
@@ -63,7 +39,7 @@ UserAction();
         "elementType": "labels.text.stroke",
         "stylers": [
           {
-            "color": "#212121"
+            "color": "#1c3645"
           }
         ]
       },
@@ -81,7 +57,7 @@ UserAction();
         "elementType": "labels.text.fill",
         "stylers": [
           {
-            "color": "#9e9e9e"
+            "color": "#90c3b9"
           }
         ]
       },
@@ -98,7 +74,7 @@ UserAction();
         "elementType": "labels.text.fill",
         "stylers": [
           {
-            "color": "#bdbdbd"
+            "color": "#90c3b9"
           }
         ]
       },
@@ -257,7 +233,7 @@ UserAction();
         "elementType": "geometry",
         "stylers": [
           {
-            "color": "#000000"
+            "color": "#0f1626"
           }
         ]
       },
@@ -283,6 +259,24 @@ UserAction();
   };
 
   var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+  // var testobj = document.getElementById("locations").getAttribute("value");
+  // console.log(testobj);
+
+  $(document).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange', function() {
+    var isFullScreen = document.fullScreen ||
+      document.mozFullScreen ||
+      document.webkitIsFullScreen;
+    if (isFullScreen) {
+      console.log('fullscreen mode!');
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push($(".swiper-container").get(0));
+    } else {
+      console.log('not fullscreen mode!');
+      var elem = map.controls[google.maps.ControlPosition.TOP_LEFT].pop();
+      // console.log(elem);
+      $(elem).removeAttr("style").prependTo("body");
+    }
+  });
 
   $.ajax({
       type: "GET",
@@ -324,44 +318,74 @@ UserAction();
                 // icon: image,
                 //title: "Hello world"
                 title: String(name),
-                customInfo: gallery_images,
-                html: `<div class="custom-marker-div"><img class="custom-marker" src="`+marker_image+`" width="90" height="65"><div class="triangle"></div></div>`
+                customInfo: [name, gallery_images],
+                html: `<div class="custom-marker-div"><img class="custom-marker" src="`+marker_image+`" width="65" height="65"><div class="triangle"></div></div>`
                 // label: {text: name, fontSize: "14px", fontWeight: "bold", color: "white"}
               });
 
               marker.addListener("click", function() { 
-                // alert("clicked");
-                console.log("clicked");
-                var gallery_images = this.customInfo;
-                var pswpElement = document.querySelectorAll('.pswp')[0];
+                if (swiper !== undefined)
+                  swiper.destroy();
 
-                var items = [];
+                /**
+                 * Set swiper contents
+                 */
+                var swiperContainer = document.getElementsByClassName("swiper-container")[0];
+                var swiperWrapper = swiperContainer.getElementsByClassName("swiper-wrapper")[0];
+
+                // set album name
+                var name = this.customInfo[0];
+                swiperContainer.getElementsByTagName("h1")[0].innerText = name;
+
+                // set image contents
+                var contents = '';
+                var gallery_images = this.customInfo[1];
                 gallery_images.forEach((url) => {
-                  let item = {
-                    src: url,
-                    w: 960,
-                    h: 720
+                  var arr = url.split("/");
+                  var imageName = arr[arr.length-1];
+                  contents += '<div class="swiper-slide" style="background-image:url(' + url + ');" data-photo-caption="' + imageName + '"></div>';
+                });
+                swiperWrapper.innerHTML = contents;
+
+                // set photo caption 
+                var firstPhotoUrl = gallery_images[gallery_images.length-1].split("/");
+                var firstPhotoName = firstPhotoUrl[firstPhotoUrl.length-1];
+                swiperContainer.getElementsByClassName("photo-caption")[0].innerText = firstPhotoName.split(".")[0];
+
+                swiper = new Swiper('.swiper-container', {
+                  effect: 'coverflow',
+                  grabCursor: true,
+                  centeredSlides: true,
+                  slidesPerView: 'auto',
+                  spaceBetween: 200,
+                  coverflowEffect: {
+                    rotate: 0,
+                    stretch: 1,
+                    depth: 200,
+                    modifier: 1,
+                    slideShadows : true,
+                  },
+                  pagination: {
+                    // el: '.swiper-pagination',
+                  },
+                  on: {
+                    slideChangeTransitionEnd: function() {
+                      // set photo caption 
+                      var photoCaption = swiperContainer.getElementsByClassName("swiper-slide-active")[0].getAttribute("data-photo-caption");
+                      swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photoCaption.split(".")[0];
+                    }
                   }
-                  items.push(item);
-                })
+                });
 
-                // define options (if needed)
-                var options = {
-                  // optionName: 'option value'
-                  // for example:
-                  index: 0 // start at first slide
-                };
-
-                // Initializes and opens PhotoSwipe
-                var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
-                gallery.init();
-                console.log("init");
+                swiperContainer.className += " active";
               }, false);
 
               markers.push(marker);
           }
+
           var markerCluster = new MarkerClusterer(map, markers,  { imagePath: 'js/clustericons/m' });
       }
   })
+})();
 // }
 

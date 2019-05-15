@@ -1,34 +1,85 @@
 <?php
 
-require 'src/common/common.php';
+// require 'src/common/common.php';
 
-use Google\Photos\Library\V1\PhotosLibraryClient;
-// use Google\Photos\Library\V1\ListAlbumsRequest;
+// use Google\Photos\Library\V1\PhotosLibraryClient;
+// // use Google\Photos\Library\V1\ListAlbumsRequest;
 
-/**
- * Removes the app's access to the user's Photos account.
- */
-if (isset($_GET['clear'])) {
-    unset($_SESSION['credentials']);
-}
+// // if session not exist
+// if (!isset($_SESSION['credentials'])) {
+//   connectWithGooglePhotos(
+//     ['https://www.googleapis.com/auth/photoslibrary'],
+//     $ini['albums_authentication_redirect_url']
+//   );
+// }
 
-checkCredentials($templates->render('albums::connect'));
-$photosLibraryClient = new PhotosLibraryClient(['credentials' => $_SESSION['credentials']]);
+// /**
+//  * Removes the app's access to the user's Photos account.
+//  */
+// if (isset($_GET['clear'])) {
+//   unset($_SESSION['credentials']);
+// }
 
-/**
- * Retrieves the user's albums, and renders them in a grid.
- */
-try {
-    $pagedResponse = $photosLibraryClient->listAlbums();
-    // By using iterateAllElements, pagination is handled for us.
-    echo $templates->render(
-        'albums::index',
-        ['albums' => $pagedResponse->iterateAllElements()]
-    );
-} catch (\Google\ApiCore\ApiException $e) {
-    echo $templates->render('error', ['exception' => $e]);
-}
-exit;
+// $photosLibraryClient = new PhotosLibraryClient(['credentials' => $_SESSION['credentials']]);
+
+// /**
+//  * Retrieves the user's albums, and renders them in a grid.
+//  */
+// try {
+//   // $pagedResponse = $photosLibraryClient->listAlbums();
+//   $pagedResponse = $photosLibraryClient->listSharedAlbums();
+
+//   $data = array();
+
+//   foreach ($pagedResponse->iteratePages() as $page) {
+//     foreach ($page as $album) {
+//       // album id
+//       $albumId = $album->getId();
+//       // album title
+//       $title = $album->getTitle();
+//       // get cover photo media itemId
+//       $coverMediaItemId = $album->getCoverPhotoMediaItemId();
+//       // share info
+//       // $shareInfo = $album->getShareInfo();
+//       // $shareableUrl = $shareInfo.getShareableUrl();
+
+//       // get media items from album
+//       $pagedResponse = $photosLibraryClient->searchMediaItems(array('albumId' => $albumId));
+//       $photos = array();
+//       $lat = '';
+//       $long = '';
+
+//       foreach ($pagedResponse->iteratePages() as $page) {
+//         foreach ($page as $mediaItem) {
+//           $mediaItemId = $mediaItem->getId();
+//           if ($mediaItemId == $coverMediaItemId) {
+//             $description = $mediaItem->getDescription();
+//             $latlong = explode(",", $description);
+//             $lat = trim($latlong[0]);
+//             $long = trim($latlong[1]);
+//           }
+//           $imgUrl = $mediaItem->getBaseUrl();
+//           array_push($photos, $imgUrl);
+//         }
+//       }
+
+//       $location = array(
+//         'title' => $title,
+//         'lat' => $lat,
+//         'long' => $long,
+//         'photos' => $photos
+//       );
+      
+//       array_push($data, $location);
+//     }
+//   }
+
+//   var_dump($data);
+
+// } catch (\Google\ApiCore\ApiException $e) {
+//     echo $templates->render('error', ['exception' => $e]);
+// }
+
 ?>
 
 <!DOCTYPE html>
@@ -39,8 +90,9 @@ exit;
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#fc9228">
-    <link rel="stylesheet" href="css/photoswipe.css"> 
-    <link rel="stylesheet" href="css/default-skin/default-skin.css"> 
+    <!-- <link rel="stylesheet" href="css/photoswipe.css">  -->
+    <!-- <link rel="stylesheet" href="css/default-skin/default-skin.css">  -->
+    <link rel="stylesheet" href="css/swiper.min.css" />
     <link rel="stylesheet" href="css/style.css" />
     <meta name="apple-mobile-web-app-title" content="project_zanzibar">
     <meta name="application-name" content="project_zanzibar">
@@ -48,91 +100,49 @@ exit;
     <meta name="theme-color" content="#fc9228">
     <meta charset="UTF-8">
     <title>project_zanzibar</title>
-    <style>
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
 
-    <script src="js/markerclusterer.js"></script>
-    <script src="js/photoswipe.min.js"></script> 
-    <script src="js/photoswipe-ui-default.min.js"></script> 
+    <!-- <script src="js/photoswipe.min.js"></script> 
+    <script src="js/photoswipe-ui-default.min.js"></script>  -->
     <script src="https://code.jquery.com/jquery-3.4.0.js" integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo=" crossorigin="anonymous"></script>
   </head>
   <body>
-
-    <!-- Root element of PhotoSwipe. Must have class pswp. -->
-    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-      <!-- Background of PhotoSwipe. 
-      It's a separate element as animating opacity is faster than rgba(). -->
-      <div class="pswp__bg"></div>
-
-      <!-- Slides wrapper with overflow:hidden. -->
-      <div class="pswp__scroll-wrap">
-
-        <!-- Container that holds slides. 
-        PhotoSwipe keeps only 3 of them in the DOM to save memory.
-        Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-          <div class="pswp__item"></div>
-          <div class="pswp__item"></div>
-          <div class="pswp__item"></div>
-        </div>
-
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
-
-          <div class="pswp__top-bar">
-            <!--  Controls are self-explanatory. Order can be changed. -->
-            <div class="pswp__counter"></div>
-
-            <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-            <button class="pswp__button pswp__button--share" title="Share"></button>
-            <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-            <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-            <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
-            <!-- element will get class pswp__preloader--active when preloader is running -->
-            <div class="pswp__preloader">
-              <div class="pswp__preloader__icn">
-                <div class="pswp__preloader__cut">
-                  <div class="pswp__preloader__donut"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-            <div class="pswp__share-tooltip"></div> 
-          </div>
-
-          <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-          </button>
-
-          <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-          </button>
-
-          <div class="pswp__caption">
-            <div class="pswp__caption__center"></div>
-          </div>
-        </div>
+    
+    <!-- Swiper -->
+    <div class="swiper-container">
+      <!-- Album name -->
+      <h1 class="album-name">&nbsp;</h1>
+      <div class="close-btn" onclick="closeSwiper()">
+        <img src="img/cross_white.png">
       </div>
+
+      <!-- swiper wrapper -->
+      <div class="swiper-wrapper">
+        <!-- <div class="swiper-slide" style="background-image:url('assets/Acadia_Park_Maine_USA_2006/IMG_0441.jpg'); width: 100px;"></div>
+        <div class="swiper-slide" style="background-image:url('assets/Acadia_Park_Maine_USA_2006/IMG_0461.jpg'); width: 200px;"></div>
+        <div class="swiper-slide" style="background-image:url('assets/Acadia_Park_Maine_USA_2006/IMG_0487.jpg'); width: 300px;"></div>
+        <div class="swiper-slide" style="background-image:url('assets/Acadia_Park_Maine_USA_2006/IMG_0493.jpg'); width: 400px;"></div> -->
+      </div>
+
+      <!-- Photo Captions -->
+      <p class="photo-caption">&nbsp;</p>
+
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
     </div>
 
+    
     <div id="map"></div>
-    <!-- <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcRXtclGL8lFBwkx4sD3X_XH_e3yN9hUM&callback=initMap">
-    </script> -->
+
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAcRXtclGL8lFBwkx4sD3X_XH_e3yN9hUM">
     </script>
+    <script src="js/markerclusterer.js"></script>
+    <script src="js/swiper.min.js"></script> 
     <script src="js/index.js" type="module"></script>
+    <script>
+      function closeSwiper() {
+        document.getElementsByClassName("swiper-container")[0].classList.remove("active");
+      }
+    </script>
   </body>
 </html>

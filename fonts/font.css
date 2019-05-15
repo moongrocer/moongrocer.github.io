@@ -1,0 +1,288 @@
+@font-face {
+  font-family: 'AvenirNext-Bold';
+  src: url('AvenirNext-Bold.eot');
+  src: url('AvenirNext-Bold.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNext-Bold.svg#AvenirNext-Bold') format('svg'),
+       url('AvenirNext-Bold.ttf') format('truetype'),
+       url('AvenirNext-Bold.woff') format('woff'),
+       url('AvenirNext-Bold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNext-BoldItalic';
+  src: url('AvenirNext-BoldItalic.eot');
+  src: url('AvenirNext-BoldItalic.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNext-BoldItalic.svg#AvenirNext-BoldItalic') format('svg'),
+       url('AvenirNext-BoldItalic.ttf') format('truetype'),
+       url('AvenirNext-BoldItalic.woff') format('woff'),
+       url('AvenirNext-BoldItalic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNext-DemiBold';
+  src: url('AvenirNext-DemiBold.eot');
+  src: url('AvenirNext-DemiBold.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNext-DemiBold.svg#AvenirNext-DemiBold') format('svg'),
+       url('AvenirNext-DemiBold.ttf') format('truetype'),
+       url('AvenirNext-DemiBold.woff') format('woff'),
+       url('AvenirNext-DemiBold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNext-DemiBoldItalic';
+  src: url('AvenirNext-DemiBoldItalic.eot');
+  src: url('AvenirNext-DemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNext-DemiBoldItalic.svg#AvenirNext-DemiBoldItalic') format('svg'),
+       url('AvenirNext-DemiBoldItalic.ttf') format('truetype'),
+       url('AvenirNext-DemiBoldItalic.woff') format('woff'),
+       url('AvenirNext-DemiBoldItalic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNext-Heavy';
+  src: url('AvenirNext-Heavy.eot');
+  src: url('AvenirNext-Heavy.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNext-Heavy.svg#AvenirNext-Heavy') format('svg'),
+       url('AvenirNext-Heavy.ttf') format('truetype'),
+       url('AvenirNext-Heavy.woff') format('woff'),
+       url('AvenirNext-Heavy.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNext-HeavyItalic';
+  src: url('AvenirNext-HeavyItalic.eot');
+  src: url('AvenirNext-HeavyItalic.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNext-HeavyItalic.svg#AvenirNext-HeavyItalic') format('svg'),
+       url('AvenirNext-HeavyItalic.ttf') format('truetype'),
+       url('AvenirNext-HeavyItalic.woff') format('woff'),
+       url('AvenirNext-HeavyItalic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNext-Italic';
+  src: url('AvenirNext-Italic.eot');
+  src: url('AvenirNext-Italic.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNext-Italic.svg#AvenirNext-Italic') format('svg'),
+       url('AvenirNext-Italic.ttf') format('truetype'),
+       url('AvenirNext-Italic.woff') format('woff'),
+       url('AvenirNext-Italic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNext-Medium';
+  src: url('AvenirNext-Medium.eot');
+  src: url('AvenirNext-Medium.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNext-Medium.svg#AvenirNext-Medium') format('svg'),
+       url('AvenirNext-Medium.ttf') format('truetype'),
+       url('AvenirNext-Medium.woff') format('woff'),
+       url('AvenirNext-Medium.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNext-MediumItalic';
+  src: url('AvenirNext-MediumItalic.eot');
+  src: url('AvenirNext-MediumItalic.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNext-MediumItalic.svg#AvenirNext-MediumItalic') format('svg'),
+       url('AvenirNext-MediumItalic.ttf') format('truetype'),
+       url('AvenirNext-MediumItalic.woff') format('woff'),
+       url('AvenirNext-MediumItalic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNext-Regular';
+  src: url('AvenirNext-Regular.eot');
+  src: url('AvenirNext-Regular.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNext-Regular.svg#AvenirNext-Regular') format('svg'),
+       url('AvenirNext-Regular.ttf') format('truetype'),
+       url('AvenirNext-Regular.woff') format('woff'),
+       url('AvenirNext-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNext-UltraLight';
+  src: url('AvenirNext-UltraLight.eot');
+  src: url('AvenirNext-UltraLight.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNext-UltraLight.svg#AvenirNext-UltraLight') format('svg'),
+       url('AvenirNext-UltraLight.ttf') format('truetype'),
+       url('AvenirNext-UltraLight.woff') format('woff'),
+       url('AvenirNext-UltraLight.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNext-UltraLightItalic';
+  src: url('AvenirNext-UltraLightItalic.eot');
+  src: url('AvenirNext-UltraLightItalic.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNext-UltraLightItalic.svg#AvenirNext-UltraLightItalic') format('svg'),
+       url('AvenirNext-UltraLightItalic.ttf') format('truetype'),
+       url('AvenirNext-UltraLightItalic.woff') format('woff'),
+       url('AvenirNext-UltraLightItalic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNextCondensed-Bold';
+  src: url('AvenirNextCondensed-Bold.eot');
+  src: url('AvenirNextCondensed-Bold.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNextCondensed-Bold.svg#AvenirNextCondensed-Bold') format('svg'),
+       url('AvenirNextCondensed-Bold.ttf') format('truetype'),
+       url('AvenirNextCondensed-Bold.woff') format('woff'),
+       url('AvenirNextCondensed-Bold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNextCondensed-BoldItalic';
+  src: url('AvenirNextCondensed-BoldItalic.eot');
+  src: url('AvenirNextCondensed-BoldItalic.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNextCondensed-BoldItalic.svg#AvenirNextCondensed-BoldItalic') format('svg'),
+       url('AvenirNextCondensed-BoldItalic.ttf') format('truetype'),
+       url('AvenirNextCondensed-BoldItalic.woff') format('woff'),
+       url('AvenirNextCondensed-BoldItalic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNextCondensed-DemiBold';
+  src: url('AvenirNextCondensed-DemiBold.eot');
+  src: url('AvenirNextCondensed-DemiBold.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNextCondensed-DemiBold.svg#AvenirNextCondensed-DemiBold') format('svg'),
+       url('AvenirNextCondensed-DemiBold.ttf') format('truetype'),
+       url('AvenirNextCondensed-DemiBold.woff') format('woff'),
+       url('AvenirNextCondensed-DemiBold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNextCondensed-DemiBoldItalic';
+  src: url('AvenirNextCondensed-DemiBoldItalic.eot');
+  src: url('AvenirNextCondensed-DemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNextCondensed-DemiBoldItalic.svg#AvenirNextCondensed-DemiBoldItalic') format('svg'),
+       url('AvenirNextCondensed-DemiBoldItalic.ttf') format('truetype'),
+       url('AvenirNextCondensed-DemiBoldItalic.woff') format('woff'),
+       url('AvenirNextCondensed-DemiBoldItalic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNextCondensed-Heavy';
+  src: url('AvenirNextCondensed-Heavy.eot');
+  src: url('AvenirNextCondensed-Heavy.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNextCondensed-Heavy.svg#AvenirNextCondensed-Heavy') format('svg'),
+       url('AvenirNextCondensed-Heavy.ttf') format('truetype'),
+       url('AvenirNextCondensed-Heavy.woff') format('woff'),
+       url('AvenirNextCondensed-Heavy.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNextCondensed-HeavyItalic';
+  src: url('AvenirNextCondensed-HeavyItalic.eot');
+  src: url('AvenirNextCondensed-HeavyItalic.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNextCondensed-HeavyItalic.svg#AvenirNextCondensed-HeavyItalic') format('svg'),
+       url('AvenirNextCondensed-HeavyItalic.ttf') format('truetype'),
+       url('AvenirNextCondensed-HeavyItalic.woff') format('woff'),
+       url('AvenirNextCondensed-HeavyItalic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNextCondensed-Italic';
+  src: url('AvenirNextCondensed-Italic.eot');
+  src: url('AvenirNextCondensed-Italic.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNextCondensed-Italic.svg#AvenirNextCondensed-Italic') format('svg'),
+       url('AvenirNextCondensed-Italic.ttf') format('truetype'),
+       url('AvenirNextCondensed-Italic.woff') format('woff'),
+       url('AvenirNextCondensed-Italic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNextCondensed-Medium';
+  src: url('AvenirNextCondensed-Medium.eot');
+  src: url('AvenirNextCondensed-Medium.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNextCondensed-Medium.svg#AvenirNextCondensed-Medium') format('svg'),
+       url('AvenirNextCondensed-Medium.ttf') format('truetype'),
+       url('AvenirNextCondensed-Medium.woff') format('woff'),
+       url('AvenirNextCondensed-Medium.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNextCondensed-MediumItalic';
+  src: url('AvenirNextCondensed-MediumItalic.eot');
+  src: url('AvenirNextCondensed-MediumItalic.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNextCondensed-MediumItalic.svg#AvenirNextCondensed-MediumItalic') format('svg'),
+       url('AvenirNextCondensed-MediumItalic.ttf') format('truetype'),
+       url('AvenirNextCondensed-MediumItalic.woff') format('woff'),
+       url('AvenirNextCondensed-MediumItalic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNextCondensed-Regular';
+  src: url('AvenirNextCondensed-Regular.eot');
+  src: url('AvenirNextCondensed-Regular.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNextCondensed-Regular.svg#AvenirNextCondensed-Regular') format('svg'),
+       url('AvenirNextCondensed-Regular.ttf') format('truetype'),
+       url('AvenirNextCondensed-Regular.woff') format('woff'),
+       url('AvenirNextCondensed-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNextCondensed-UltraLight';
+  src: url('AvenirNextCondensed-UltraLight.eot');
+  src: url('AvenirNextCondensed-UltraLight.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNextCondensed-UltraLight.svg#AvenirNextCondensed-UltraLight') format('svg'),
+       url('AvenirNextCondensed-UltraLight.ttf') format('truetype'),
+       url('AvenirNextCondensed-UltraLight.woff') format('woff'),
+       url('AvenirNextCondensed-UltraLight.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirNextCondensed-UltraLightItalic';
+  src: url('AvenirNextCondensed-UltraLightItalic.eot');
+  src: url('AvenirNextCondensed-UltraLightItalic.eot?#iefix') format('embedded-opentype'),
+       url('AvenirNextCondensed-UltraLightItalic.svg#AvenirNextCondensed-UltraLightItalic') format('svg'),
+       url('AvenirNextCondensed-UltraLightItalic.ttf') format('truetype'),
+       url('AvenirNextCondensed-UltraLightItalic.woff') format('woff'),
+       url('AvenirNextCondensed-UltraLightItalic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
