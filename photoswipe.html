@@ -28,7 +28,62 @@
     <script src="js/photoswipe-ui-default.min.js"></script> 
     <script src="https://code.jquery.com/jquery-3.4.0.js" integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo=" crossorigin="anonymous"></script>
 	<script>
+    document.addEventListener("keypress", function(e) {
+            if (e.keyCode === 13) {
+    toggleFullScreen();
+        }
+    }, false);
+    function toggleFullScreen() {
+  if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen(); 
+    }
+  }
+}
 	function initMap() {
+        var openPhotoSwipe = function() {
+            var pswpElement = document.querySelectorAll('.pswp')[0];
+
+         // build items array
+         var items = [
+                    {
+                        src: 'assets/Reykjavik_Iceland_2010/Reykjavik_Iceland001.jpg',
+                        w: 960,
+                        h: 720
+                    },
+                    {
+                        src: 'assets/Reykjavik_Iceland_2010/Reykjavik_Iceland002.jpg',
+                        w: 784,
+                        h: 960
+                    },
+                    {
+                        src: 'assets/Reykjavik_Iceland_2010/Reykjavik_Iceland003.jpg',
+                        w: 960,
+                        h: 720
+                    },
+                    {
+                        src: 'assets/Reykjavik_Iceland_2010/Reykjavik_Iceland004.jpg',
+                        w: 960,
+                        h: 560
+                    }
+                ];
+    
+    // define options (if needed)
+    var options = {
+             // history & focus options are disabled on CodePen        
+        history: false,
+        focus: false,
+
+        showAnimationDuration: 0,
+        hideAnimationDuration: 0
+        
+    };
+    
+    var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+    gallery.init();
+};
         $.ajax({
             type: "GET",
             async: true,
@@ -55,42 +110,7 @@
                     
                    
                 }
-                var pswpElement = document.querySelectorAll('.pswp')[0];
-
-                // build items array
-                var items = [
-                    {
-                        src: 'assets/Reykjavik_Iceland_2010/Reykjavik_Iceland001.jpg',
-                        w: 960,
-                        h: 720
-                    },
-                    {
-                        src: 'assets/Reykjavik_Iceland_2010/Reykjavik_Iceland002.jpg',
-                        w: 784,
-                        h: 960
-                    },
-                    {
-                        src: 'assets/Reykjavik_Iceland_2010/Reykjavik_Iceland003.jpg',
-                        w: 960,
-                        h: 720
-                    },
-                    {
-                        src: 'assets/Reykjavik_Iceland_2010/Reykjavik_Iceland004.jpg',
-                        w: 960,
-                        h: 560
-                    }
-                ];
-
-                // define options (if needed)
-                var options = {
-                    // optionName: 'option value'
-                    // for example:
-                    index: 0 // start at first slide
-                };
-
-                // Initializes and opens PhotoSwipe
-                var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
-                gallery.init();
+                document.getElementById('btn').onclick = openPhotoSwipe;
                 }
             });
     }
@@ -98,6 +118,8 @@
 	</script>
 </head>
 <body>
+        <button id="btn">Open PhotoSwipe</button>
+        <br/><br/> Press enter to toggle fullscreen
     <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 

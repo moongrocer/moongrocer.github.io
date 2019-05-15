@@ -272,7 +272,7 @@ import createHTMLMapMarker from "./html-map-marker.js";
   };
 
   var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
+  
   $.ajax({
       type: "GET",
       async: true,
@@ -282,6 +282,7 @@ import createHTMLMapMarker from "./html-map-marker.js";
       function (xml) {
           var places = xml.documentElement.getElementsByTagName("location");
           var markers = [];
+          
           for (var i = 0; i < places.length; i++) {
               // console.log(places[i].getElementsByTagName("photo")[0].getAttribute("url"));
               var marker_image = places[i].getElementsByTagName("photo")[0].getAttribute("url");
