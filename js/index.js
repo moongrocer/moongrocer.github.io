@@ -1,23 +1,11 @@
 import createHTMLMapMarker from "./html-map-marker.js";
 
-// const latLng = new google.maps.LatLng(16.7666, -3.0026);
-// const mapOptions = {
-//   zoom: 11,
-//   center: latLng
-// };
-// const map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-// let marker = createHTMLMapMarker({
-//   latlng: latLng,
-//   map: map,
-//   html: `<img id="parrot" src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif">`
-// });
-
-// marker.addListener("click", () => {
-//   alert("Partyin Partyin Yeah!");
-// });
+// swiper global 
+var swiper;
+var closeSwiper = false;
 
 // function initMap() {
+(function() {
   var mapOptions = {
     zoom: 3,
     minZoom: 3,
@@ -28,7 +16,7 @@ import createHTMLMapMarker from "./html-map-marker.js";
         "elementType": "geometry",
         "stylers": [
           {
-            "color": "#212121"
+            "color": "#0a3e57"
           }
         ]
       },
@@ -44,7 +32,7 @@ import createHTMLMapMarker from "./html-map-marker.js";
         "elementType": "labels.text.fill",
         "stylers": [
           {
-            "color": "#757575"
+            "color": "#90c3b9"
           }
         ]
       },
@@ -52,7 +40,7 @@ import createHTMLMapMarker from "./html-map-marker.js";
         "elementType": "labels.text.stroke",
         "stylers": [
           {
-            "color": "#212121"
+            "color": "#1c3645"
           }
         ]
       },
@@ -70,7 +58,7 @@ import createHTMLMapMarker from "./html-map-marker.js";
         "elementType": "labels.text.fill",
         "stylers": [
           {
-            "color": "#9e9e9e"
+            "color": "#90c3b9"
           }
         ]
       },
@@ -87,7 +75,7 @@ import createHTMLMapMarker from "./html-map-marker.js";
         "elementType": "labels.text.fill",
         "stylers": [
           {
-            "color": "#bdbdbd"
+            "color": "#90c3b9"
           }
         ]
       },
@@ -246,7 +234,7 @@ import createHTMLMapMarker from "./html-map-marker.js";
         "elementType": "geometry",
         "stylers": [
           {
-            "color": "#000000"
+            "color": "#0f1626"
           }
         ]
       },
@@ -272,7 +260,23 @@ import createHTMLMapMarker from "./html-map-marker.js";
   };
 
   var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-  
+
+  // for google full screen
+  $(document).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange', function() {
+    var isFullScreen = document.fullScreen ||
+      document.mozFullScreen ||
+      document.webkitIsFullScreen;
+    if (isFullScreen) {
+      console.log('fullscreen mode!');
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push($(".swiper-container").get(0));
+    } else {
+      console.log('not fullscreen mode!');
+      var elem = map.controls[google.maps.ControlPosition.TOP_LEFT].pop();
+      // console.log(elem);
+      $(elem).removeAttr("style").prependTo("body");
+    }
+  });
+
   $.ajax({
       type: "GET",
       async: true,
@@ -290,10 +294,12 @@ import createHTMLMapMarker from "./html-map-marker.js";
               // get gallery images
               var images = places[i].getElementsByTagName("photo");
               var gallery_images = [];
+              var photoCaptions = [];
               for (var j=0; j<images.length; j++) {
                 gallery_images.push(images[j].getAttribute("url"));
+                photoCaptions.push(images[j].textContent);
               }
-              
+
               var lat = parseFloat(places[i].getElementsByTagName("lat")[0].textContent);
               var long = parseFloat(places[i].getElementsByTagName("long")[0].textContent);
               var name = places[i].getElementsByTagName("title")[0].textContent;
@@ -314,40 +320,110 @@ import createHTMLMapMarker from "./html-map-marker.js";
                 // icon: image,
                 //title: "Hello world"
                 title: String(name),
-                customInfo: gallery_images,
-                html: `<div class="custom-marker-div"><img class="custom-marker" src="`+marker_image+`" width="90" height="65"><div class="triangle"></div></div>`
+                customInfo: [name, gallery_images, photoCaptions],
+                html: `<div class="custom-marker-div">
+                        <div class="custom-marker" style="background-image: url(`+marker_image+`)" ></div>
+                        <div class="triangle"></div>
+                      </div>`
                 // label: {text: name, fontSize: "14px", fontWeight: "bold", color: "white"}
               });
 
               marker.addListener("click", function() { 
-                var gallery_images = this.customInfo;
-                var pswpElement = document.querySelectorAll('.pswp')[0];
+                if (swiper !== undefined)
+                  swiper.destroy();
 
-                var items = [];
-                gallery_images.forEach((url) => {
-                  let item = {
-                    src: url,
-                    w: 960,
-                    h: 720
+                /**
+                 * Set swiper contents
+                 */
+                var swiperContainer = document.getElementsByClassName("swiper-container")[0];
+                var swiperWrapper = swiperContainer.getElementsByClassName("swiper-wrapper")[0];
+
+                // set album name
+                var name = this.customInfo[0];
+                swiperContainer.getElementsByTagName("h1")[0].innerText = name;
+
+                // set image contents
+                var contents = '';
+                var gallery_images = this.customInfo[1];
+                var photo_captions = this.customInfo[2];
+                gallery_images.forEach((url, idx) => {
+                  var arr = url.split("/");
+                  var imageName = arr[arr.length-1];
+                  contents += '<div class="swiper-slide" data-photo-caption="' + photo_captions[idx] + '"><img src="'+url+'" style="height:100%"></div>';
+                });
+                swiperWrapper.innerHTML = contents;
+
+                swiper = new Swiper('.swiper-container', {
+                  effect: 'coverflow',
+                  grabCursor: true,
+                  centeredSlides: true,
+                  slidesPerView: 'auto',
+                  spaceBetween: 200,
+                  coverflowEffect: {
+                    rotate: 0,
+                    stretch: 1,
+                    depth: 200,
+                    modifier: 1,
+                    slideShadows : true,
+                  },
+                  pagination: {
+                    // el: '.swiper-pagination',
+                  },
+                  on: {
+                    sliderMove: function() { // when slider is moving
+                      // set photo caption 
+                      var activeSlide = swiperContainer.getElementsByClassName("swiper-slide-active");
+                      if (activeSlide.length > 0) {
+                        var photoCaption = activeSlide[0].getAttribute("data-photo-caption");
+                        swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photoCaption.split(".")[0];
+                      }
+                    },
+                    slideChangeTransitionEnd: function() { // when transition is ended
+                      // set photo caption 
+                      var activeSlide = swiperContainer.getElementsByClassName("swiper-slide-active");
+                      if (activeSlide.length > 0) {
+                        var photoCaption = activeSlide[0].getAttribute("data-photo-caption");
+                        swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photoCaption.split(".")[0];
+                      }
+                    },
+                    touchStart: function(e) {
+                      if (e.target.className == "close-btn" || e.target.parentElement.className == "close-btn") {
+                        // if target element or its parent is close-btn div ..
+                        closeSwiper = true;
+                      }
+                    },
+                    touchEnd: function(e) {
+                      if (e.target.className == "close-btn" || e.target.parentElement.className == "close-btn") {
+                        if (closeSwiper == true) {
+                          // if close-btn clicked..
+                          document.getElementsByClassName("swiper-container")[0].classList.remove("active");
+                        }
+                      }
+                      closeSwiper = false;
+                    }
                   }
-                  items.push(item);
-                })
+                });
 
-                // define options (if needed)
-                var options = {
-                  // optionName: 'option value'
-                  // for example:
-                  index: 0 // start at first slide
-                };
+                // set active slie as first one
+                swiper.activeIndex = 0;
 
-                // Initializes and opens PhotoSwipe
-                var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
-                gallery.init();
+                // set caption of first photo
+                swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photo_captions[0];
+
+                swiperContainer.className += " active";
               }, false);
 
               markers.push(marker);
           }
+
           var markerCluster = new MarkerClusterer(map, markers,  { imagePath: 'js/clustericons/m' });
       }
   })
+
+  // document.addEventListener('click', function(e) {
+  //   e = e || window.event;
+  //   var target = e.target || e.srcElement
+  // }, false);
+})();
 // }
+
