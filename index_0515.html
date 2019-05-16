@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#fc9228">
+    <link rel="stylesheet" href="css/photoswipe.css"> 
+    <link rel="stylesheet" href="css/default-skin/default-skin.css"> 
+    <link rel="stylesheet" href="css/style.css" />
+    <meta name="apple-mobile-web-app-title" content="project_zanzibar">
+    <meta name="application-name" content="project_zanzibar">
+    <meta name="msapplication-TileColor" content="#02a1c1">
+    <meta name="theme-color" content="#fc9228">
+    <meta name="google-signin-client_id" content="64198313611-fdhn6jf5l0d3ul2k5bc2ko0ebbtem2nb.apps.googleusercontent.com">
+    <meta charset="UTF-8">
+    <title>project_zanzibar</title>
+    <style>
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+    <script src="js/markerclusterer.js"></script>
+    <script src="js/photoswipe.min.js"></script> 
+    <script src="js/photoswipe-ui-default.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.4.0.js" integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+      <!-- Background of PhotoSwipe. 
+      It's a separate element as animating opacity is faster than rgba(). -->
+      <div class="pswp__bg"></div>
+
+      <!-- Slides wrapper with overflow:hidden. -->
+      <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+        PhotoSwipe keeps only 3 of them in the DOM to save memory.
+        Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+          <div class="pswp__item"></div>
+          <div class="pswp__item"></div>
+          <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+          <div class="pswp__top-bar">
+            <!--  Controls are self-explanatory. Order can be changed. -->
+            <div class="pswp__counter"></div>
+
+            <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+            <button class="pswp__button pswp__button--share" title="Share"></button>
+            <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+            <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+            <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+            <!-- element will get class pswp__preloader--active when preloader is running -->
+            <div class="pswp__preloader">
+              <div class="pswp__preloader__icn">
+                <div class="pswp__preloader__cut">
+                  <div class="pswp__preloader__donut"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+            <div class="pswp__share-tooltip"></div> 
+          </div>
+
+          <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+          </button>
+
+          <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+          </button>
+
+          <div class="pswp__caption">
+            <div class="pswp__caption__center"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="map"></div>
+    
+    <!-- <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcRXtclGL8lFBwkx4sD3X_XH_e3yN9hUM&callback=initMap">
+    </script> -->
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAcRXtclGL8lFBwkx4sD3X_XH_e3yN9hUM">
+    </script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script src="js/index.js" type="module"></script>
+  </body>
+</html>
