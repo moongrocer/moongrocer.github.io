@@ -358,7 +358,7 @@ var closeSwiper = false;
                   grabCursor: true,
                   centeredSlides: true,
                   slidesPerView: 'auto',
-                  spaceBetween: 200,
+                  // spaceBetween: 200,
                   coverflowEffect: {
                     rotate: 0,
                     stretch: 1,
