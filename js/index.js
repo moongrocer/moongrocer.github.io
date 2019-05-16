@@ -286,6 +286,7 @@ var closeSwiper = false;
       function (xml) {
           var places = xml.documentElement.getElementsByTagName("location");
           var markers = [];
+          
           for (var i = 0; i < places.length; i++) {
               // console.log(places[i].getElementsByTagName("photo")[0].getAttribute("url"));
               var marker_image = places[i].getElementsByTagName("photo")[0].getAttribute("url");
