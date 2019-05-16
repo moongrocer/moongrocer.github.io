@@ -2,6 +2,7 @@ import createHTMLMapMarker from "./html-map-marker.js";
 
 // swiper global 
 var swiper;
+var closeSwiper = false;
 
 // function initMap() {
 (function() {
@@ -260,9 +261,7 @@ var swiper;
 
   var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-  // var testobj = document.getElementById("locations").getAttribute("value");
-  // console.log(testobj);
-
+  // for google full screen
   $(document).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange', function() {
     var isFullScreen = document.fullScreen ||
       document.mozFullScreen ||
@@ -294,10 +293,12 @@ var swiper;
               // get gallery images
               var images = places[i].getElementsByTagName("photo");
               var gallery_images = [];
+              var photoCaptions = [];
               for (var j=0; j<images.length; j++) {
                 gallery_images.push(images[j].getAttribute("url"));
+                photoCaptions.push(images[j].textContent);
               }
-              
+
               var lat = parseFloat(places[i].getElementsByTagName("lat")[0].textContent);
               var long = parseFloat(places[i].getElementsByTagName("long")[0].textContent);
               var name = places[i].getElementsByTagName("title")[0].textContent;
@@ -318,7 +319,7 @@ var swiper;
                 // icon: image,
                 //title: "Hello world"
                 title: String(name),
-                customInfo: [name, gallery_images],
+                customInfo: [name, gallery_images, photoCaptions],
                 html: `<div class="custom-marker-div">
                         <div class="custom-marker" style="background-image: url(`+marker_image+`)" ></div>
                         <div class="triangle"></div>
@@ -343,18 +344,13 @@ var swiper;
                 // set image contents
                 var contents = '';
                 var gallery_images = this.customInfo[1];
-                gallery_images.forEach((url) => {
+                var photo_captions = this.customInfo[2];
+                gallery_images.forEach((url, idx) => {
                   var arr = url.split("/");
                   var imageName = arr[arr.length-1];
-
-                  contents += '<div class="swiper-slide" data-photo-caption="' + imageName + '"><img src="'+url+'" style="height:100%"></div>';
+                  contents += '<div class="swiper-slide" data-photo-caption="' + photo_captions[idx] + '"><img src="'+url+'" style="height:100%"></div>';
                 });
                 swiperWrapper.innerHTML = contents;
-
-                // set photo caption 
-                var firstPhotoUrl = gallery_images[gallery_images.length-1].split("/");
-                var firstPhotoName = firstPhotoUrl[firstPhotoUrl.length-1];
-                swiperContainer.getElementsByClassName("photo-caption")[0].innerText = firstPhotoName.split(".")[0];
 
                 swiper = new Swiper('.swiper-container', {
                   effect: 'coverflow',
@@ -373,15 +369,45 @@ var swiper;
                     // el: '.swiper-pagination',
                   },
                   on: {
-                    slideChangeTransitionEnd: function() {
+                    sliderMove: function() { // when slider is moving
                       // set photo caption 
-                      var photoCaption = swiperContainer.getElementsByClassName("swiper-slide-active")[0].getAttribute("data-photo-caption");
-                      swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photoCaption.split(".")[0];
+                      var activeSlide = swiperContainer.getElementsByClassName("swiper-slide-active");
+                      if (activeSlide.length > 0) {
+                        var photoCaption = activeSlide[0].getAttribute("data-photo-caption");
+                        swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photoCaption.split(".")[0];
+                      }
+                    },
+                    slideChangeTransitionEnd: function() { // when transition is ended
+                      // set photo caption 
+                      var activeSlide = swiperContainer.getElementsByClassName("swiper-slide-active");
+                      if (activeSlide.length > 0) {
+                        var photoCaption = activeSlide[0].getAttribute("data-photo-caption");
+                        swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photoCaption.split(".")[0];
+                      }
+                    },
+                    touchStart: function(e) {
+                      if (e.target.className == "close-btn" || e.target.parentElement.className == "close-btn") {
+                        // if target element or its parent is close-btn div ..
+                        closeSwiper = true;
+                      }
+                    },
+                    touchEnd: function(e) {
+                      if (e.target.className == "close-btn" || e.target.parentElement.className == "close-btn") {
+                        if (closeSwiper == true) {
+                          // if close-btn clicked..
+                          document.getElementsByClassName("swiper-container")[0].classList.remove("active");
+                        }
+                      }
+                      closeSwiper = false;
                     }
                   }
                 });
 
-                swiper.updateSlides();
+                // set active slie as first one
+                swiper.activeIndex = 0;
+
+                // set caption of first photo
+                swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photo_captions[0];
 
                 swiperContainer.className += " active";
               }, false);
@@ -392,6 +418,11 @@ var swiper;
           var markerCluster = new MarkerClusterer(map, markers,  { imagePath: 'js/clustericons/m' });
       }
   })
+
+  // document.addEventListener('click', function(e) {
+  //   e = e || window.event;
+  //   var target = e.target || e.srcElement
+  // }, false);
 })();
 // }
 

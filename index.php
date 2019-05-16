@@ -111,7 +111,7 @@
     <div class="swiper-container">
       <!-- Album name -->
       <h1 class="album-name">&nbsp;</h1>
-      <div class="close-btn" onclick="closeSwiper()">
+      <div class="close-btn">
         <img src="img/cross_white.png">
       </div>
 

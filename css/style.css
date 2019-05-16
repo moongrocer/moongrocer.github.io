@@ -12,7 +12,6 @@ html, body {
 
 /* Swiper styles */
 .swiper-container {
-  width: 100%;
   padding-top: 50px;
   padding-bottom: 50px;
   box-sizing: border-box;
@@ -40,6 +39,7 @@ html, body {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   box-shadow: #424242 0 0 10px;
+  z-index: 999;
 }
 .swiper-container .close-btn:hover {
   cursor: pointer;
@@ -60,6 +60,22 @@ html, body {
   border-radius: 10px;
   box-shadow: #000 0 0 10px;
   width: auto;
+  max-width: calc(100vw - 60px);
+  overflow: hidden;
+
+  
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
 }
 .swiper-slide.swiper-slide-active {
   box-shadow: #000 0 0 20px;
