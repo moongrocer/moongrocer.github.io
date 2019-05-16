@@ -348,7 +348,9 @@ var closeSwiper = false;
                 gallery_images.forEach((url, idx) => {
                   var arr = url.split("/");
                   var imageName = arr[arr.length-1];
-                  contents += '<div class="swiper-slide" data-photo-caption="' + photo_captions[idx] + '"><img src="'+url+'" style="height:100%"></div>';
+                  contents += `<div class="swiper-slide" data-photo-caption="` + photo_captions[idx] + `">
+                                <img src="` + url + `" style="height:100%">
+                              </div>`;
                 });
                 swiperWrapper.innerHTML = contents;
 
@@ -357,7 +359,6 @@ var closeSwiper = false;
                   grabCursor: true,
                   centeredSlides: true,
                   slidesPerView: 'auto',
-                  // spaceBetween: 200,
                   coverflowEffect: {
                     rotate: 0,
                     stretch: 1,
