@@ -541,7 +541,9 @@ var closeSwiper = false;
                 if (swiper !== undefined) {
                   setTimeout(function() { 
                     swiperContainer.classList.add("active");
-                    swiperLoading.classList.remove("active");
+                    setTimeout(function() {
+                      swiperLoading.classList.remove("active");
+                    }, 500);                    
                   }, 200);
                 }
               },
