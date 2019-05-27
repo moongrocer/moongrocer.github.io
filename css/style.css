@@ -10,6 +10,16 @@ html, body {
   padding: 0;
 }
 
+/* .main {
+  position: fixed !important;
+  background: #000000aa;
+  width: 100vw;
+  height: 100vh;
+  left: 0 !important;
+  top: 0 !important;
+  opacity: 0;
+} */
+
 /* swiper loading effects */
 .swiper-loading {
   position: fixed !important;
@@ -110,13 +120,13 @@ html, body {
   opacity: 0;
 }
 .swiper-container.active > div { 
-  animation: WipeIn .5s;
+  animation: WipeIn 1s;
   animation-iteration-count: 1;
   animation-timing-function: cubic-bezier(1.000, 0.005, 0.215, 1.000);
   left: auto !important;
 }
 .swiper-container.active.wipe > div.swiper-wrapper {
-  animation: WipeOut .5s;
+  animation: WipeOut 1s;
   animation-iteration-count: 1;
   left: auto !important;
 }

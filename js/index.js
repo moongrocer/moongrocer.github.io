@@ -539,12 +539,12 @@ var closeSwiper = false;
             on: {
               imagesReady: function () {
                 if (swiper !== undefined) {
-                  setTimeout(function() { 
+                  // setTimeout(function() { 
                     swiperContainer.classList.add("active");
                     setTimeout(function() {
                       swiperLoading.classList.remove("active");
-                    }, 500);                    
-                  }, 200);
+                    }, 500);
+                  // }, 500);
                 }
               },
               sliderMove: function() { // when slider is moving
