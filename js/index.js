@@ -537,6 +537,14 @@ var closeSwiper = false;
             //   // el: '.swiper-pagination',
             // },
             on: {
+              imagesReady: function () {
+                if (swiper !== undefined) {
+                  // setTimeout(function() { 
+                    swiperLoading.classList.remove("active");
+                    swiperContainer.classList.add("active");
+                  // }, 2000);
+                }
+              },
               sliderMove: function() { // when slider is moving
                 // set photo caption 
                 var activeSlide = swiperContainer.getElementsByClassName("swiper-slide-active");
@@ -574,21 +582,14 @@ var closeSwiper = false;
               }
             }
           });
-          
-          swiper.init();
+
+          // swiper.init();
 
           // set active slie as first one
           swiper.activeIndex = 0;
 
           // set caption of first photo
           swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photo_captions[0];
-
-          if (swiper !== undefined) {
-            setTimeout(function() { 
-              swiperLoading.classList.remove("active");
-              swiperContainer.classList.add("active");
-            }, 3000);
-          }
 
         }, false);
 

@@ -20,6 +20,7 @@ html, body {
   top: 0 !important;
   z-index: -99 !important;
   opacity: 0;
+  transition: opacity .5s;
 }
 .swiper-loading.active {
   z-index: 99 !important;
@@ -95,18 +96,41 @@ html, body {
   top: 0 !important;
   z-index: -99 !important;
   opacity: 0;
+
+  transition: opacity .5s;
 }
 .swiper-container.active {
   z-index: 10 !important;
   opacity: 1;
 }
 .swiper-container.active.wipe {
-  animation: WipeEffect .5s infinite;
+  opacity: 0;
+}
+.swiper-container.active > div { 
+  animation: WipeIn .5s;
+  animation-iteration-count: 1;
   left: auto !important;
 }
-@keyframes WipeEffect {
+.swiper-container.active.wipe > div.swiper-wrapper {
+  animation: WipeOut .5s;
+  animation-iteration-count: 1;
+  left: auto !important;
+}
+@keyframes WipeIn {
+  0% { right: -100%; opacity: 0; }
+  100% { right: 0; opacity: 1; }
+}
+@keyframes WipeOut {
   0% { right: 0; opacity: 1; }
   100% { right: 100%; opacity: 0; }
+}
+@keyframes FadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes FadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
 }
 .swiper-container .close-btn {
   position: absolute;
