@@ -281,10 +281,10 @@ var closeSwiper = false;
 
   // video background play ended
   document.getElementsByClassName('video')[0].addEventListener('ended', function () {
-    document.getElementsByClassName('video-container')[0].classList.add("hidden");
+    document.getElementsByClassName('video')[0].classList.add("hidden");
     setTimeout(function() {
       document.getElementsByClassName('video-container')[0].style.display = "none";
-    }, 1000);
+    }, 2000);
   }, false);
 
   // // init map data from flickr
