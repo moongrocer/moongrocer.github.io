@@ -539,10 +539,10 @@ var closeSwiper = false;
             on: {
               imagesReady: function () {
                 if (swiper !== undefined) {
-                  // setTimeout(function() { 
-                    swiperLoading.classList.remove("active");
+                  setTimeout(function() { 
                     swiperContainer.classList.add("active");
-                  // }, 2000);
+                    swiperLoading.classList.remove("active");
+                  }, 200);
                 }
               },
               sliderMove: function() { // when slider is moving

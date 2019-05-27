@@ -19,12 +19,13 @@ html, body {
   left: 0 !important;
   top: 0 !important;
   z-index: -99 !important;
-  opacity: 0;
+  opacity: 1;
+
   transition: opacity .5s;
 }
 .swiper-loading.active {
   z-index: 99 !important;
-  opacity: 1;
+  animation: FadeIn .5s;
 }
 .swiper-loading .line {
   width: 500px;
