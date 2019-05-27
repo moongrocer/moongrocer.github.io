@@ -574,6 +574,8 @@ var closeSwiper = false;
               }
             }
           });
+          
+          swiper.init();
 
           // set active slie as first one
           swiper.activeIndex = 0;
