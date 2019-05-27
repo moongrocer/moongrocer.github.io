@@ -1,10 +1,12 @@
 import createHTMLMapMarker from "./html-map-marker.js";
 
-// swiper global 
+// global variables
 var swiper;
 var closeSwiper = false;
 
-// function initMap() {
+// var url_sample = "https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg";
+// var url_sample_small = "https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}_s.jpg";
+
 (function() {
   var mapOptions = {
     zoom: 3,
@@ -277,154 +279,321 @@ var closeSwiper = false;
     }
   });
 
-  $.ajax({
-      type: "GET",
-      async: true,
-      url: "locations_.xml",
-      dataType: "xml",
-      success:
-      function (xml) {
-          var places = xml.documentElement.getElementsByTagName("location");
-          var markers = [];
+  // // init map data from flickr
+  // $.ajax({
+  //   type: "POST",
+  //   async: true,
+  //   url: "src/photosets_getList.php",
+  //   success: function(data) {
+  //     // console.log(data);
+      
+  //     var markers = [];
+
+  //     // var url_sample = "https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}_s.jpg";
+  //     // var url_sample_small = "https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}_s.jpg";
+
+  //     data.forEach(place => {
+  //       // console.log(place);
+  //       var marker_image = url_sample_small;
+  //       marker_image = marker_image.replace("{farm-id}", place["farm"]).replace("{server-id}", place["server"]).replace("{id}", place["primary"]).replace("{secret}", place["secret"]);
+  //       // console.log(marker_image);
+
+  //       // // get gallery images
+  //       // var images = places[i].getElementsByTagName("photo");
+  //       // var gallery_images = [];
+  //       // var photoCaptions = [];
+  //       // for (var j=0; j<images.length; j++) {
+  //       //   gallery_images.push(images[j].getAttribute("url"));
+  //       //   photoCaptions.push(images[j].textContent);
+  //       // }
+
+  //       var album_desc = place["description"];
+  //       var lat = album_desc.split(",")[0].trim();
+  //       var long = album_desc.split(",")[1].trim();
+        
+  //       var latLng = new google.maps.LatLng(lat, long);
+  //       var name = place["title"];
+  //       var album_id = place["id"];
+        
+  //       var marker = createHTMLMapMarker({
+  //         latlng:  latLng,
+  //         map: map,
+  //         title: String(name),
+  //         customInfo: [name, album_id],
+  //         html: `<div class="custom-marker-div">
+  //                 <div class="custom-marker" style="background-image: url(`+marker_image+`)" ></div>
+  //                 <div class="triangle"></div>
+  //               </div>`
+  //         // label: {text: name, fontSize: "14px", fontWeight: "bold", color: "white"}
+  //       });
+
+  //       marker.addListener("click", function() { 
+  //         if (swiper !== undefined)
+  //           swiper.destroy();
+
+  //         /**
+  //          * Set swiper contents
+  //          */
+  //         var swiperContainer = document.getElementsByClassName("swiper-container")[0];
+  //         var swiperWrapper = swiperContainer.getElementsByClassName("swiper-wrapper")[0];
+
+  //         // set album name
+  //         var name = this.customInfo[0];
+  //         swiperContainer.getElementsByTagName("h1")[0].innerText = name;
+
+  //         var album_id = this.customInfo[1];
+
+  //         $.ajax({
+  //           type: "POST",
+  //           async: true,
+  //           url: "src/photosets_getPhotos.php",
+  //           data: {album_id: album_id},
+  //           dataType: "json",
+  //           success: function(data) {
+  //             // set image contents
+  //             var photos = data['photo'];
+  //             var contents = '';
+
+  //             photos.forEach(photo => {
+  //               var url = url_sample;
+  //               url = url.replace("{farm-id}", photo["farm"]).replace("{server-id}", photo["server"]).replace("{id}", photo["id"]).replace("{secret}", photo["secret"]);
+  //               contents += `<div class="swiper-slide" data-photo-caption="` + photo['title'] + `">
+  //                             <img src="` + url + `" style="height:100%">
+  //                           </div>`;
+  //             });
+  //             swiperWrapper.innerHTML = contents;
+
+  //             swiper = new Swiper('.swiper-container', {
+  //               effect: 'coverflow',
+  //               grabCursor: true,
+  //               centeredSlides: true,
+  //               slidesPerView: 'auto',
+  //               coverflowEffect: {
+  //                 rotate: 0,
+  //                 stretch: 1,
+  //                 depth: 200,
+  //                 modifier: 1,
+  //                 slideShadows : true,
+  //               },
+  //               on: {
+  //                 sliderMove: function() { // when slider is moving
+  //                   // set photo caption 
+  //                   var activeSlide = swiperContainer.getElementsByClassName("swiper-slide-active");
+  //                   if (activeSlide.length > 0) {
+  //                     var photoCaption = activeSlide[0].getAttribute("data-photo-caption");
+  //                     swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photoCaption.split(".")[0];
+  //                   }
+  //                 },
+  //                 slideChangeTransitionEnd: function() { // when transition is ended
+  //                   // set photo caption 
+  //                   var activeSlide = swiperContainer.getElementsByClassName("swiper-slide-active");
+  //                   if (activeSlide.length > 0) {
+  //                     var photoCaption = activeSlide[0].getAttribute("data-photo-caption");
+  //                     swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photoCaption.split(".")[0];
+  //                   }
+  //                 },
+  //                 touchStart: function(e) {
+  //                   if (e.target.className == "close-btn" || e.target.parentElement.className == "close-btn") {
+  //                     // if target element or its parent is close-btn div ..
+  //                     closeSwiper = true;
+  //                   }
+  //                 },
+  //                 touchEnd: function(e) {
+  //                   if (e.target.className == "close-btn" || e.target.parentElement.className == "close-btn") {
+  //                     if (closeSwiper == true) {
+  //                       // if close-btn clicked..
+  //                       document.getElementsByClassName("swiper-container")[0].classList.remove("active");
+  //                     }
+  //                   }
+  //                   closeSwiper = false;
+  //                 }
+  //               }
+  //             });
+    
+  //             // set active slie as first one
+  //             swiper.activeIndex = 0;
+    
+  //             // set caption of first photo
+  //             // swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photo_captions[0];
+    
+  //             swiperContainer.className += " active";
+  //           },
+  //           error: function(e) {
+  //             console.log(e);
+  //           }
+  //         });
           
-          for (var i = 0; i < places.length; i++) {
-              // console.log(places[i].getElementsByTagName("photo")[0].getAttribute("url"));
-              var marker_image = places[i].getElementsByTagName("photo")[0].getAttribute("url");
+          
+  //       }, false);
 
-              // get gallery images
-              var images = places[i].getElementsByTagName("photo");
-              var gallery_images = [];
-              var photoCaptions = [];
-              for (var j=0; j<images.length; j++) {
-                gallery_images.push(images[j].getAttribute("url"));
-                photoCaptions.push(images[j].textContent);
-              }
+  //       markers.push(marker);
+  //     });
 
-              var lat = parseFloat(places[i].getElementsByTagName("lat")[0].textContent);
-              var long = parseFloat(places[i].getElementsByTagName("long")[0].textContent);
-              var name = places[i].getElementsByTagName("title")[0].textContent;
-              var image = {
-                  url: marker_image,
-                  //url: 'assets/marker1.png',
-                  labelOrigin: new google.maps.Point(50,110),
-                  //origin: new google.maps.Point(0, 0),
-                  //anchor: new google.maps.Point(0, 0),
-                  //scaledSize: new google.maps.Size(38, 45)
-                  scaledSize: new google.maps.Size(65, 65)
-              };
-              var latLng = new google.maps.LatLng(lat, long);
-              // var marker = new google.maps.Marker({
-              let marker = createHTMLMapMarker({
-                latlng:  latLng,
-                map: map,
-                // icon: image,
-                //title: "Hello world"
-                title: String(name),
-                customInfo: [name, gallery_images, photoCaptions],
-                html: `<div class="custom-marker-div">
-                        <div class="custom-marker" style="background-image: url(`+marker_image+`)" ></div>
-                        <div class="triangle"></div>
-                      </div>`
-                // label: {text: name, fontSize: "14px", fontWeight: "bold", color: "white"}
-              });
+  //     var markerCluster = new MarkerClusterer(map, markers,  { imagePath: 'js/clustericons/m' });
+  //   },
+  //   error: function(err) {
+  //     console.log("error");
+  //     console.log(err);
+  //   }
+  // })
 
-              marker.addListener("click", function() { 
-                if (swiper !== undefined)
-                  swiper.destroy();
+  $.ajax({
+    type: "GET",
+    async: true,
+    url: "locations_.xml",
+    dataType: "xml",
+    success:
+    function (xml) {
+      var places = xml.documentElement.getElementsByTagName("location");
+      var markers = [];
+      
+      for (var i = 0; i < places.length; i++) {
+        // console.log(places[i].getElementsByTagName("photo")[0].getAttribute("url"));
+        var marker_image = places[i].getElementsByTagName("photo")[0].getAttribute("url");
 
-                /**
-                 * Set swiper contents
-                 */
-                var swiperContainer = document.getElementsByClassName("swiper-container")[0];
-                var swiperWrapper = swiperContainer.getElementsByClassName("swiper-wrapper")[0];
+        // get gallery images
+        var images = places[i].getElementsByTagName("photo");
+        var gallery_images = [];
+        var photoCaptions = [];
+        for (var j=0; j<images.length; j++) {
+          gallery_images.push(images[j].getAttribute("url"));
+          photoCaptions.push(images[j].textContent);
+        }
 
-                // set album name
-                var name = this.customInfo[0];
-                swiperContainer.getElementsByTagName("h1")[0].innerText = name;
+        var lat = parseFloat(places[i].getElementsByTagName("lat")[0].textContent);
+        var long = parseFloat(places[i].getElementsByTagName("long")[0].textContent);
+        var name = places[i].getElementsByTagName("title")[0].textContent;
+        // var image = {
+        //     url: marker_image,
+        //     //url: 'assets/marker1.png',
+        //     labelOrigin: new google.maps.Point(50,110),
+        //     //origin: new google.maps.Point(0, 0),
+        //     //anchor: new google.maps.Point(0, 0),
+        //     //scaledSize: new google.maps.Size(38, 45)
+        //     scaledSize: new google.maps.Size(65, 65)
+        // };
+        var latLng = new google.maps.LatLng(lat, long);
+        // var marker = new google.maps.Marker({
+        let marker = createHTMLMapMarker({
+          latlng:  latLng,
+          map: map,
+          // icon: image,
+          //title: "Hello world"
+          title: String(name),
+          customInfo: [name, gallery_images, photoCaptions],
+          html: `<div class="custom-marker-div">
+                  <div class="custom-marker" style="background-image: url(`+marker_image+`)" ></div>
+                  <div class="triangle"></div>
+                </div>`
+          // label: {text: name, fontSize: "14px", fontWeight: "bold", color: "white"}
+        });
 
-                // set image contents
-                var contents = '';
-                var gallery_images = this.customInfo[1];
-                var photo_captions = this.customInfo[2];
-                gallery_images.forEach((url, idx) => {
-                  var arr = url.split("/");
-                  var imageName = arr[arr.length-1];
-                  contents += `<div class="swiper-slide" data-photo-caption="` + photo_captions[idx] + `">
-                                <img src="` + url + `" style="height:100%">
-                              </div>`;
-                });
-                swiperWrapper.innerHTML = contents;
+        marker.addListener("click", function() { 
 
-                swiper = new Swiper('.swiper-container', {
-                  effect: 'coverflow',
-                  grabCursor: true,
-                  centeredSlides: true,
-                  slidesPerView: 'auto',
-                  coverflowEffect: {
-                    rotate: 0,
-                    stretch: 1,
-                    depth: 200,
-                    modifier: 1,
-                    slideShadows : true,
-                  },
-                  pagination: {
-                    // el: '.swiper-pagination',
-                  },
-                  on: {
-                    sliderMove: function() { // when slider is moving
-                      // set photo caption 
-                      var activeSlide = swiperContainer.getElementsByClassName("swiper-slide-active");
-                      if (activeSlide.length > 0) {
-                        var photoCaption = activeSlide[0].getAttribute("data-photo-caption");
-                        swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photoCaption.split(".")[0];
-                      }
-                    },
-                    slideChangeTransitionEnd: function() { // when transition is ended
-                      // set photo caption 
-                      var activeSlide = swiperContainer.getElementsByClassName("swiper-slide-active");
-                      if (activeSlide.length > 0) {
-                        var photoCaption = activeSlide[0].getAttribute("data-photo-caption");
-                        swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photoCaption.split(".")[0];
-                      }
-                    },
-                    touchStart: function(e) {
-                      if (e.target.className == "close-btn" || e.target.parentElement.className == "close-btn") {
-                        // if target element or its parent is close-btn div ..
-                        closeSwiper = true;
-                      }
-                    },
-                    touchEnd: function(e) {
-                      if (e.target.className == "close-btn" || e.target.parentElement.className == "close-btn") {
-                        if (closeSwiper == true) {
-                          // if close-btn clicked..
-                          document.getElementsByClassName("swiper-container")[0].classList.remove("active");
-                        }
-                      }
-                      closeSwiper = false;
-                    }
+          var swiperLoading = document.getElementsByClassName("swiper-loading")[0];
+          console.log(swiperLoading.classList);
+          console.log("asdf");
+          swiperLoading.classList.add("active");
+          console.log(swiperLoading.classList);
+          console.log("asdf");
+
+          if (swiper !== undefined)
+            swiper.destroy();
+
+          /**
+           * Set swiper contents
+           */
+          var swiperContainer = document.getElementsByClassName("swiper-container")[0];
+          var swiperWrapper = swiperContainer.getElementsByClassName("swiper-wrapper")[0];
+
+          // set album name
+          var name = this.customInfo[0];
+          swiperContainer.getElementsByTagName("h1")[0].innerText = name;
+
+          // set image contents
+          var contents = '';
+          var gallery_images = this.customInfo[1];
+          var photo_captions = this.customInfo[2];
+          gallery_images.forEach((url, idx) => {
+            contents += `<div class="swiper-slide" data-photo-caption="` + photo_captions[idx] + `">
+                          <img src="` + url + `" style="height:100%">
+                        </div>`;
+          });
+          swiperWrapper.innerHTML = contents;
+
+          swiper = new Swiper('.swiper-container', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+              rotate: 0,
+              stretch: 1,
+              depth: 200,
+              modifier: 1,
+              slideShadows : true,
+            },
+            // pagination: {
+            //   // el: '.swiper-pagination',
+            // },
+            on: {
+              sliderMove: function() { // when slider is moving
+                // set photo caption 
+                var activeSlide = swiperContainer.getElementsByClassName("swiper-slide-active");
+                if (activeSlide.length > 0) {
+                  var photoCaption = activeSlide[0].getAttribute("data-photo-caption");
+                  swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photoCaption.split(".")[0];
+                }
+              },
+              slideChangeTransitionEnd: function() { // when transition is ended
+                // set photo caption 
+                var activeSlide = swiperContainer.getElementsByClassName("swiper-slide-active");
+                if (activeSlide.length > 0) {
+                  var photoCaption = activeSlide[0].getAttribute("data-photo-caption");
+                  swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photoCaption.split(".")[0];
+                }
+              },
+              touchStart: function(e) {
+                if (e.target.className == "close-btn" || e.target.parentElement.className == "close-btn") {
+                  // if target element or its parent is close-btn div ..
+                  closeSwiper = true;
+                }
+              },
+              touchEnd: function(e) {
+                if (e.target.className == "close-btn" || e.target.parentElement.className == "close-btn") {
+                  if (closeSwiper == true) {
+                    // if close-btn clicked..
+                    document.getElementsByClassName("swiper-container")[0].classList.add("wipe");
+                    setTimeout(function() {
+                      document.getElementsByClassName("swiper-container")[0].classList.remove("active");
+                      document.getElementsByClassName("swiper-container")[0].classList.remove("wipe");
+                    }, 500);
                   }
-                });
+                }
+                closeSwiper = false;
+              }
+            }
+          });
 
-                // set active slie as first one
-                swiper.activeIndex = 0;
+          // set active slie as first one
+          swiper.activeIndex = 0;
 
-                // set caption of first photo
-                swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photo_captions[0];
+          // set caption of first photo
+          swiperContainer.getElementsByClassName("photo-caption")[0].innerText = photo_captions[0];
 
-                swiperContainer.className += " active";
-              }, false);
-
-              markers.push(marker);
+          if (swiper !== undefined) {
+            setTimeout(function() { 
+              swiperLoading.classList.remove("active");
+              swiperContainer.classList.add("active");
+            }, 3000);
           }
 
-          var markerCluster = new MarkerClusterer(map, markers,  { imagePath: 'js/clustericons/m' });
+        }, false);
+
+        markers.push(marker);
       }
+
+      var markerCluster = new MarkerClusterer(map, markers,  { imagePath: 'js/clustericons/m' });
+    }
   })
-
-  // document.addEventListener('click', function(e) {
-  //   e = e || window.event;
-  //   var target = e.target || e.srcElement
-  // }, false);
 })();
-// }
-

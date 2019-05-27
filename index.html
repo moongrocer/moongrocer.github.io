@@ -4,7 +4,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="manifest" href="site.webmanifest">
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#fc9228">
     <!-- <link rel="stylesheet" href="css/photoswipe.css">  -->
     <!-- <link rel="stylesheet" href="css/default-skin/default-skin.css">  -->
@@ -23,6 +23,16 @@
   </head>
   <body>
     
+    <!-- swiper loading.. -->
+    <div class="swiper-loading">
+      <div class="line">
+        <div class="progress-container">
+          <div class="progress"></div>
+        </div>
+      </div>
+    </div>
+
+
     <!-- Swiper -->
     <div class="swiper-container">
       <!-- Album name -->
@@ -33,10 +43,6 @@
 
       <!-- swiper wrapper -->
       <div class="swiper-wrapper">
-        <!-- <div class="swiper-slide" style="background-image:url('assets/Acadia_Park_Maine_USA_2006/IMG_0441.jpg'); width: 100px;"></div>
-        <div class="swiper-slide" style="background-image:url('assets/Acadia_Park_Maine_USA_2006/IMG_0461.jpg'); width: 200px;"></div>
-        <div class="swiper-slide" style="background-image:url('assets/Acadia_Park_Maine_USA_2006/IMG_0487.jpg'); width: 300px;"></div>
-        <div class="swiper-slide" style="background-image:url('assets/Acadia_Park_Maine_USA_2006/IMG_0493.jpg'); width: 400px;"></div> -->
       </div>
 
       <!-- Photo Captions -->
@@ -44,6 +50,11 @@
 
       <!-- Add Pagination -->
       <div class="swiper-pagination"></div>
+
+      <!-- Lazy background image on slide itself -->
+      <div data-background="path/to/picture-3.jpg" class="swiper-slide swiper-lazy">
+        <div class="swiper-lazy-preloader"></div>
+      </div>
     </div>
 
     
