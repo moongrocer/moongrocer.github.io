@@ -98,6 +98,7 @@ html, body {
   opacity: 0;
 
   transition: opacity .5s;
+  transition-timing-function: cubic-bezier(1.000, 0.005, 0.215, 1.000);
 }
 .swiper-container.active {
   z-index: 10 !important;
@@ -109,6 +110,7 @@ html, body {
 .swiper-container.active > div { 
   animation: WipeIn .5s;
   animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(1.000, 0.005, 0.215, 1.000);
   left: auto !important;
 }
 .swiper-container.active.wipe > div.swiper-wrapper {
