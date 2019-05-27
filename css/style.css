@@ -22,6 +22,7 @@ html, body {
   opacity: 1;
 
   transition: opacity .5s;
+  transition-timing-function: cubic-bezier(.75,.3,.75,.3);
 }
 .swiper-loading.active {
   z-index: 99 !important;
