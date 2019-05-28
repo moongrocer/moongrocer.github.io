@@ -337,7 +337,7 @@ p.photo-caption {
     top: 80px;
   }
 }
-@media (min-width: 768px) and (orientation : landscape) {
+@media (min-width: 768px) and (max-width: 991px) and (orientation : landscape) {
   h1.album-name {
     font-size: 24px;
     margin: 15px 0;
@@ -349,6 +349,9 @@ p.photo-caption {
   .swiper-wrapper {
     margin-top: 0px;
     height: calc(100vh - 130px);
+  }
+  .swiper-container .close-btn {
+    top: 10px;
   }
 }
 
