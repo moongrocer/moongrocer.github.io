@@ -40,6 +40,8 @@ html, body {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
+  min-width: 100vw;
+  min-height: 100vh;
 }
 @media screen and (max-aspect-ratio: 1920/1080) {
   .video-container > video {
