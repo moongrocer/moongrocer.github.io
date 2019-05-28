@@ -337,6 +337,20 @@ p.photo-caption {
     top: 80px;
   }
 }
+@media (min-width: 768px) and (orientation : landscape) {
+  h1.album-name {
+    font-size: 24px;
+    margin: 15px 0;
+  }
+  .swiper-container {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .swiper-wrapper {
+    margin-top: 0px;
+    height: calc(100vh - 130px);
+  }
+}
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
