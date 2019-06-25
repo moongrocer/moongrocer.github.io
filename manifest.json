@@ -1,0 +1,20 @@
+{
+    "name": "GeoMap",
+    "short_name": "GeoMap",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/index.html",
+    "theme_color": "#fc9228",
+    "background_color": "#fc9228",
+    "display": "fullscreen"
+}
